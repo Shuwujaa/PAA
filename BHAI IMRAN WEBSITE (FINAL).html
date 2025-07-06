@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physics Lab Attendance App</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #000000cc;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgb(0, 0, 0);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      max-width: 300px;
+      height: auto;
+    }
+    .field {
+      margin-bottom: 15px;
+    }
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .field input, .field select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #000000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #000000;
+    }
+    .whatsapp-button {
+      background-color: #000000;
+      margin-top: 10px;
+    }
+    .material-icons {
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="logo.real.png" alt="Physics Lab Logo">
+  </div>
+  <div class="container">
+    <div class="field">
+      <label><i class="material-icons">calendar_today</i> Date</label>
+      <input type="date" id="date">
+    </div>
+    <div class="field">
+      <label><i class="material-icons">today</i> Day</label>
+      <input type="text" id="day" placeholder="Monday" readonly>
+    </div>
+    <div class="field">
+      <label><i class="material-icons">access_time</i> Time</label>
+      <input type="time" id="time">
+    </div>
+    <div class="field">
+      <label><i class="material-icons">class</i> Class</label>
+      <input type="text" id="class" placeholder="F.Sc 1st Year">
+    </div>
+    <div class="field">
+      <label><i class="material-icons">group</i> Section</label>
+      <input type="text" id="section" placeholder="A, B, C...">
+    </div>
+    <div class="field">
+      <label><i class="material-icons">science</i> Practical Name</label>
+      <select id="practical">
+        <option value="">Select a Practical</option>
+        <!-- Practical options will be inserted here -->
+      </select>
+    </div>
+    <div class="field">
+      <label><i class="material-icons">person</i> Teacher Name & WhatsApp</label>
+      <select id="whatsapp">
+        <option value="">Select Teacher</option>
+        <option value="3006699478">Sir Athar Rafique</option>
+        <option value="3347075174">Sir Ziaullah</option>
+        <option value="3067238416">Sir Syed Irfan</option>
+        <option value="3007648936">Sir Baber Hussain</option>
+        <option value="3227475888">Sir Salman Hanif</option>
+        <option value="3137134024">Sir Shahid</option>
+        <option value="3056391083">Sir Awais Khalid</option>
+        <option value="3074861098">Teacher Iqra</option>
+        <option value="3130079578">Sir Abdul Salam</option>
+        <option value="3226305824">Sir Mansoor Akhtar</option>
+        <option value="3246847237">Sir Zeeshan</option>
+        <option value="3066988668">Sir Arsalan Asif</option>
+        <option value="3357637575">Sir Ashfaq Dogar</option>
+      </select>
+    </div>
+    <button onclick="sendEntry()">Submit Entry</button>
+    <button class="whatsapp-button" onclick="sendWhatsApp()">
+      <i class="material-icons">send</i> Send to WhatsApp
+    </button>
+  </div>
+
+  <script>
+    const practicals = [
+      "Measure length and diameter of a solid cylinder using Vernier callipers",
+      "Measure diameters of ball bearings using Screw Gauge",
+      "Determine radius of curvature using spherometer",
+      "Determine weight of a body by vector addition",
+      "Verify two conditions of equilibrium with metre rod",
+      "Measure free fall time using ticker-timer",
+      "Investigate value of ‘g’ with electronic timer",
+      "Investigate momentum conservation with trolleys",
+      "Investigate force on roller on inclined plane",
+      "Determine moment of inertia of flywheel",
+      "Fall of steel balls through viscous medium",
+      "Verify time period of pendulum vs. length",
+      "Oscillating mass-spring system",
+      "Vibrating metal lamina for value of ‘g’",
+      "Determine A.C frequency using Melde’s apparatus",
+      "Laws of vibration using sonometer",
+      "Wavelength of sound using resonance tube",
+      "Wavelength of light with diffraction grating",
+      "Slit separation using laser light",
+      "Measure wire diameter using laser",
+      "Pick count of nylon mesh using laser",
+      "Mechanical equivalent of heat (electric method)",
+      "Specific heat of solid (electrical method)"
+    ];
+
+    const practicalSelect = document.getElementById("practical");
+    practicals.forEach(p => {
+      const option = document.createElement("option");
+      option.textContent = p;
+      practicalSelect.appendChild(option);
+    });
+
+    document.getElementById("date").addEventListener("change", function () {
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const selectedDate = new Date(this.value);
+      document.getElementById("day").value = days[selectedDate.getDay()];
+    });
+
+    function sendEntry() {
+      alert("Entry Submitted Successfully!");
+    }
+
+    function sendWhatsApp() {
+      const teacherNumber = document.getElementById("whatsapp").value;
+      const practicalText = document.getElementById("practical").options[document.getElementById("practical").selectedIndex].text;
+      const text = `Date: ${document.getElementById("date").value}\n\nDay: ${document.getElementById("day").value}\n\nTime: ${document.getElementById("time").value}\n\nClass: ${document.getElementById("class").value}\n\nSection: ${document.getElementById("section").value}\n\nPractical: ${practicalText}`;
+      const encodedText = encodeURIComponent(text).replace(/%0A/g, '%0A%0A');
+      if (teacherNumber) {
+        window.open(`https://wa.me/92${teacherNumber}?text=${encodedText}`, '_blank');
+      } else {
+        alert("Please select a teacher.");
+      }
+    }
+  </script>
+</body>
+</html>
